@@ -311,6 +311,12 @@ MonoBehaviour:
   stepsInGrass: 0
   minStepsToEncounter: 5
   maxStepsToEncounter: 15
+  jumpForce: 10
+  jumpingSpeed: 15
+  fallingSpeed: 25
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &243272084
 Transform:
   m_ObjectHideFlags: 0
@@ -1783,7 +1789,7 @@ GameObject:
   - component: {fileID: 1848464047}
   - component: {fileID: 1848464046}
   - component: {fileID: 1848464045}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}

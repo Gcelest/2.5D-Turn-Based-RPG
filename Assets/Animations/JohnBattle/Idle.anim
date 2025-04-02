@@ -21,11 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 582287507, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
+      value: {fileID: 1819424137, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
     - time: 0.33333334
       value: {fileID: -1792459513, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
     attribute: m_Sprite
-    path: 
+    path: John
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -37,7 +37,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 2437433000
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -46,7 +46,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 582287507, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
+    - {fileID: 1819424137, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
     - {fileID: -1792459513, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2

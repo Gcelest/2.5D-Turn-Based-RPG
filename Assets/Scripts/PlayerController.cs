@@ -10,7 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int stepsInGrass;
     [SerializeField] private int minStepsToEncounter;
     [SerializeField] private int maxStepsToEncounter;
-
+    [SerializeField] private float jumpForce = 5f; // Adjust as needed
+    [SerializeField] private float jumpingSpeed;
+    [SerializeField] private float fallingSpeed;
+    [SerializeField] private LayerMask groundLayer;
+    private bool isGrounded;
 
     private PlayerControls playerControls;
     private Rigidbody rb;
@@ -20,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private int stepsToEncounter;
 
 
-
+    private const string IS_JUMP_PARAM = "Jump";
     private const string IS_WALK_PARAM = "Move";
     private const string BATTLE_SCENE = "BattleScene";
     private const float TIME_PER_STEP = 0.5f;
@@ -52,42 +56,69 @@ public class PlayerController : MonoBehaviour
 
         movement = new Vector3(x, 0, z).normalized;
 
-        anim.SetBool(IS_WALK_PARAM, movement!=Vector3.zero);
+        anim.SetBool(IS_WALK_PARAM, movement != Vector3.zero);
 
-        if(x!= 0 && x<0)
+        if (x != 0 && x < 0)
         {
             sprite.flipX = true;
         }
 
-        if(x!= 0 && x>0)
+        if (x != 0 && x > 0)
         {
             sprite.flipX = false;
+        }
+
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
+
+        anim.SetBool("isGrounded", isGrounded);
+
+        if (playerControls.Player.Jump.triggered && isGrounded)
+        {
+            anim.SetTrigger(IS_JUMP_PARAM);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z); // Instant, powerful jump
         }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
-    
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 1, grassLayer);
-        movingInGrass = colliders.Length!=0 && movement != Vector3.zero;
 
-        if(movingInGrass == true)
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+
+        anim.SetBool("isGrounded", isGrounded);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 1, grassLayer);
+        movingInGrass = colliders.Length != 0 && movement != Vector3.zero;
+
+
+         if (!isGrounded)
+    {
+        if (rb.linearVelocity.y > 0) // Going up
+        {
+            rb.AddForce(Vector3.down * jumpingSpeed, ForceMode.Acceleration); // Stronger gravity while going up
+        }
+        else if (rb.linearVelocity.y < 0) // Falling
+        {
+            rb.AddForce(Vector3.down * fallingSpeed, ForceMode.Acceleration); // Even stronger gravity while falling
+        }
+    }
+
+        if (movingInGrass)
         {
             stepTimer += Time.fixedDeltaTime;
 
-            if(stepTimer > TIME_PER_STEP)
+            if (stepTimer > TIME_PER_STEP)
             {
                 stepsInGrass++;
                 stepTimer = 0;
 
-                if(stepsInGrass >= stepsToEncounter)
+                if (stepsInGrass >= stepsToEncounter)
                 {
                     SceneManager.LoadScene(BATTLE_SCENE);
                 }
             }
         }
-    
+
     }
 
     private void CalculateStepsToNextEncounter()

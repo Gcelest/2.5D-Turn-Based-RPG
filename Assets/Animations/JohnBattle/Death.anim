@@ -29,14 +29,14 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shadow
+    path: John/Shadow
   m_PositionCurves:
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0, y: -0.4, z: 0}
+        value: {x: 0, y: -0.23, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -46,7 +46,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shadow
+    path: John/Shadow
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
@@ -55,7 +55,7 @@ AnimationClip:
     - time: 0
       value: {fileID: -838091809, guid: d56f17ec885c3264a82085b2b78bc5e8, type: 3}
     attribute: m_Sprite
-    path: 
+    path: John
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -67,7 +67,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 2437433000
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -76,7 +76,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 1926924059
+      path: 2814071170
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -85,7 +85,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 1926924059
+      path: 2814071170
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -133,7 +133,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 16
@@ -154,7 +154,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 16
@@ -175,7 +175,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 16
@@ -196,7 +196,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -206,7 +206,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.4
+        value: -0.23
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -217,7 +217,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -238,7 +238,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -251,7 +251,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -263,7 +263,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -275,7 +275,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Shadow
+    path: John/Shadow
     classID: 4
     script: {fileID: 0}
     flags: 0

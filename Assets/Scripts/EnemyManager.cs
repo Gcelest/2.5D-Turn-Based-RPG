@@ -15,16 +15,16 @@ public class EnemyManager : MonoBehaviour
         GenerateEnemyByName("Slime", 1);
     }
 
-    private void GenerateEnemyByName(string EnemyName, int level)
+    private void GenerateEnemyByName(string _enemyName, int _level)
     {
         for (int i = 0; i < allEnemies.Length; i++)
         {
-            if (EnemyName == allEnemies[i].EnemyName)
+            if (_enemyName == allEnemies[i].EnemyName)
             {
                 Enemy newEnemy = new Enemy();
 
                 newEnemy.EnemyName = allEnemies[i].EnemyName;
-                newEnemy.Level = level;
+                newEnemy.Level = _level;
                 float levelModifier = (LEVEL_MODIFIER * newEnemy.Level);
 
                 newEnemy.MaxHealth = Mathf.RoundToInt(allEnemies[i].BaseHealth + (allEnemies[i].BaseHealth * levelModifier));
@@ -37,6 +37,11 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
+
+     public List<Enemy> GetCurrentEnemies()
+   {
+    return currentEnemies;
+   }
 }
 
 [System.Serializable]

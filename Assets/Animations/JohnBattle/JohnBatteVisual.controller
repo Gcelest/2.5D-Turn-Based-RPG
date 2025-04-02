@@ -109,7 +109,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1718646976106-john_0
+  m_Name: JohnBatteVisual
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: IsAttack
@@ -206,16 +206,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2381443796178113948}
-    m_Position: {x: 210, y: 110, z: 0}
+    m_Position: {x: 260, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 518730997210157527}
-    m_Position: {x: 460, y: 110, z: 0}
+    m_Position: {x: 520, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6891312850911244923}
-    m_Position: {x: 460, y: 20, z: 0}
+    m_Position: {x: 520, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4282732813863935200}
-    m_Position: {x: 460, y: 190, z: 0}
+    m_Position: {x: 520, y: 190, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
