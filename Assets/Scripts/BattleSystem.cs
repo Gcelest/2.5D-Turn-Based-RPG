@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -36,8 +37,9 @@ public class BattleSystem : MonoBehaviour
 
     private const string ACTION_MESSAGE = "'s Action:";
     private const string WIN_MESSAGE = "You won the battle";
-     private const string LOSE_MESSAGE = "Game Over";
-    
+    private const string LOSE_MESSAGE = "Game Over";
+    private const string OVERWORLD_SCENE = "OverworldScene";
+
     private const int TURN_DURATION = 2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -49,6 +51,7 @@ public class BattleSystem : MonoBehaviour
         CreatePartyEntities();
         CreateEnemyEntities();
         ShowBattleMenu();
+        DetermineBattleOrder();
     }
 
     private IEnumerator BattleRoutine()
@@ -113,7 +116,8 @@ public class BattleSystem : MonoBehaviour
                     battleState = BattleState.Won;
                     bottomText.text = WIN_MESSAGE;
                     yield return new WaitForSeconds(TURN_DURATION);
-                    Debug.Log("Return to Overworld");
+                    SceneManager.LoadScene(OVERWORLD_SCENE);
+                    //Debug.Log("Return to Overworld");
                 }
                  // if no enemies remain
                   // won
@@ -121,7 +125,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         //enemy turn
-        if(allBattlers[i].IsPlayer == false)
+        if(i < allBattlers.Count && allBattlers[i].IsPlayer == false)
         {
             BattleEntities currAttacker = allBattlers[i];
             currAttacker.SetTarget(GetRandomPartyMember());// get random party member (target)
@@ -170,7 +174,7 @@ public class BattleSystem : MonoBehaviour
             BattleVisuals tempBattleVisuals = Instantiate(currentParty[i].MemberBattleVisualPrefab,
             partySpawnPoints[i].position, Quaternion.identity).GetComponent<BattleVisuals>();
 
-            tempBattleVisuals.SetStartingValues(currentParty[i].MaxHealth, currentParty[i].MaxHealth, currentParty[i].Level);
+            tempBattleVisuals.SetStartingValues(currentParty[i].CurrHealth, currentParty[i].MaxHealth, currentParty[i].Level);
             tempEntity.BattleVisuals = tempBattleVisuals;
 
             allBattlers.Add(tempEntity);
@@ -272,6 +276,7 @@ public class BattleSystem : MonoBehaviour
         _currTarget.BattleVisuals.PlayHitAnimation(); // play their hit anim
         _currTarget.UpdateUI(); // update UI
         bottomText.text = string.Format("{0} attacks {1} for {2} damage", _currAttacker.Name, _currTarget.Name, damage);
+        SaveHealth();
     }
 
     private int GetRandomPartyMember()
@@ -303,7 +308,25 @@ public class BattleSystem : MonoBehaviour
 
         return enemies[Random.Range(0, enemies.Count)]; //return random enemy
     }
+
+    private void SaveHealth()
+    {
+        for (int i = 0; i < playerBattlers.Count; i++)
+        {
+            partyManager.SaveHealth(i, playerBattlers[i].CurrHealth);
+        }
+    }
+
+    private void DetermineBattleOrder()
+    {
+        //sort list by initiative in ascending order
+        allBattlers.Sort((bi1, bi2) => -bi1.Initiative.CompareTo(bi2.Initiative));
+
+
+    }
+
 }
+
 
 
 [System.Serializable]

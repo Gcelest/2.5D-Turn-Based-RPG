@@ -3,18 +3,31 @@ using UnityEngine;
 
 public class PartyManager : MonoBehaviour
 {
-   [SerializeField] private PartyMemberInfo[] allMembers;
-   [SerializeField] private List<PartyMember> currentParty;
+    [SerializeField] private PartyMemberInfo[] allMembers;
+    [SerializeField] private List<PartyMember> currentParty;
 
     [SerializeField] private PartyMemberInfo defaultPartyMember;
 
+    private Vector3 playerPosition;
+    private static GameObject instance;
+
     private void Awake()
     {
-        AddMemberToPartyByName(defaultPartyMember.MemberName);
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+
+        else{
+            instance = this.gameObject;
+            AddMemberToPartyByName(defaultPartyMember.MemberName);
+        }
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     public void AddMemberToPartyByName(string MemberName)
-   {
+    {
         for (int i = 0; i < allMembers.Length; i++)
         {
             if (allMembers[i].MemberName == MemberName)
@@ -28,16 +41,32 @@ public class PartyManager : MonoBehaviour
                 newPartyMember.Initiative = allMembers[i].BaseInitiative;
                 newPartyMember.MemberBattleVisualPrefab = allMembers[i].MemberBattleVisualPrefab;
                 newPartyMember.MemberOverworldVisualPrefab = allMembers[i].MemberOverworldVisualPrefab;
-            
+
                 currentParty.Add(newPartyMember);
             }
         }
-   }
+    }
 
-   public List<PartyMember> GetCurrentParty()
-   {
-    return currentParty;
-   }
+    public List<PartyMember> GetCurrentParty()
+    {
+        return currentParty;
+    }
+
+    public void SaveHealth(int partyMembers, int health)
+    {
+        currentParty[partyMembers].CurrHealth = health;
+
+    }
+
+    public void SetPosition(Vector3 _position)
+    {
+        playerPosition = _position;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return playerPosition;
+    }
 }
 
 [System.Serializable]

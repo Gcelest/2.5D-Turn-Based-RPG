@@ -1,18 +1,42 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyInfo[] allEnemies;
     [SerializeField] private List<Enemy> currentEnemies;
 
+    private static GameObject instance;
 
     private const float LEVEL_MODIFIER = 0.5f;
 
     private void Awake()
     {
-        GenerateEnemyByName("Slime", 10);
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this.gameObject;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void GenerateEnemyByEncounter(Encounter[] _encounters, int _maxNumEnemies)
+    {
+        currentEnemies.Clear();
+        int numEnemies = Random.Range(1, _maxNumEnemies + 1);
+
+        for (int i = 0; i < numEnemies; i++)
+        {
+            Encounter tempEncounter = _encounters[Random.Range(0, _encounters.Length)];
+            int level = Random.Range(tempEncounter.LevelMin, tempEncounter.LevelMax + 1);
+            GenerateEnemyByName(tempEncounter.Enemy.EnemyName, level);
+        }
     }
 
     private void GenerateEnemyByName(string _enemyName, int _level)
@@ -38,10 +62,10 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-     public List<Enemy> GetCurrentEnemies()
-   {
-    return currentEnemies;
-   }
+    public List<Enemy> GetCurrentEnemies()
+    {
+        return currentEnemies;
+    }
 }
 
 [System.Serializable]

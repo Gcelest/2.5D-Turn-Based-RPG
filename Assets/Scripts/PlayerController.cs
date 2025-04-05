@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpingSpeed;
     [SerializeField] private float fallingSpeed;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask obstructionMask;
     private bool facingRight = true;
     private bool isGrounded;
 
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool movingInGrass;
     private float stepTimer;
     private int stepsToEncounter;
+    private PartyManager partyManager; 
 
 
     private const string IS_JUMP_PARAM = "Jump";
@@ -44,9 +46,19 @@ public class PlayerController : MonoBehaviour
         playerControls.Enable();
     }
 
+    private void OnDisable()
+    {
+        playerControls.Disable();  // 👈 Important!
+    }
+
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        partyManager = GameObject.FindFirstObjectByType<PartyManager>();
+        if(partyManager.GetPosition() != Vector3.zero)//if position saved
+        {
+            transform.position = partyManager.GetPosition();//move player
+        }
     }
     // Update is called once per frame
     void Update()
@@ -82,6 +94,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //made it look like a paper mario where they flip when looking left and right
     private IEnumerator RotateCharacter(float targetYRotation)
     {
         float duration = 0.2f; // Adjust rotation speed
@@ -133,6 +146,7 @@ public class PlayerController : MonoBehaviour
 
                 if (stepsInGrass >= stepsToEncounter)
                 {
+                    partyManager.SetPosition(transform.position);
                     SceneManager.LoadScene(BATTLE_SCENE);
                 }
             }
