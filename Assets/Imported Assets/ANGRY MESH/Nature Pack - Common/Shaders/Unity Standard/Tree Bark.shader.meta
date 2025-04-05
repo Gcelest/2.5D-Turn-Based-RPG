@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 453892f4eaeacf24e81e20188db3dd87
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142750
+  packageName: Winter Environment - Nature Pack
+  packageVersion: 2.8
+  assetPath: Assets/ANGRY MESH/Nature Pack - Common/Shaders/Unity Standard/Tree Bark.shader
+  uploadId: 743687

@@ -21,7 +21,7 @@ public class BattleVisuals : MonoBehaviour
     private const string IS_HIT_PARAM = "IsHit";
     private const string IS_DEAD_PARAM = "IsDead";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         anim = gameObject.GetComponent<Animator>();
     }

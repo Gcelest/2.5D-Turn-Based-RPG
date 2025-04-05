@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 5697a7b9513bf6046a1ee9e08f6b29ff
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142750
+  packageName: Winter Environment - Nature Pack
+  packageVersion: 2.8
+  assetPath: Assets/ANGRY MESH/Nature Pack - Common/Shaders/Unity Standard/Detail
+    Props.shader
+  uploadId: 743687

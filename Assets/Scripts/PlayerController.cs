@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpingSpeed;
     [SerializeField] private float fallingSpeed;
     [SerializeField] private LayerMask groundLayer;
+    private bool facingRight = true;
     private bool isGrounded;
 
     private PlayerControls playerControls;
@@ -58,14 +60,15 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool(IS_WALK_PARAM, movement != Vector3.zero);
 
-        if (x != 0 && x < 0)
+        if (x < 0 && facingRight)
         {
-            sprite.flipX = true;
+            StartCoroutine(RotateCharacter(180));
+            facingRight = false;
         }
-
-        if (x != 0 && x > 0)
+        else if (x > 0 && !facingRight)
         {
-            sprite.flipX = false;
+            StartCoroutine(RotateCharacter(0));
+            facingRight = true;
         }
 
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
@@ -79,6 +82,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator RotateCharacter(float targetYRotation)
+    {
+        float duration = 0.2f; // Adjust rotation speed
+        float elapsedTime = 0;
+        Quaternion startRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(0, targetYRotation, 0);
+
+        while (elapsedTime < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetRotation;
+    }
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);

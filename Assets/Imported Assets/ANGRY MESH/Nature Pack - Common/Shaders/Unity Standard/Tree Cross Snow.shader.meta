@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 76c9ec5550cc074499b49e6440c59ae7
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142750
+  packageName: Winter Environment - Nature Pack
+  packageVersion: 2.8
+  assetPath: Assets/ANGRY MESH/Nature Pack - Common/Shaders/Unity Standard/Tree Cross
+    Snow.shader
+  uploadId: 743687

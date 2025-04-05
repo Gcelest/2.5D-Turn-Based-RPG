@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0fb6a7b98ed12ef4eba1fc10d31db175
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142750
+  packageName: Winter Environment - Nature Pack
+  packageVersion: 2.8
+  assetPath: Assets/ANGRY MESH/Nature Pack - Common/Shaders/Unity Standard/Tree Leaf
+    Snow.shader
+  uploadId: 743687
