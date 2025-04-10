@@ -39,8 +39,11 @@ public class BattleSystem : MonoBehaviour
     private const string WIN_MESSAGE = "You won the battle";
     private const string LOSE_MESSAGE = "Game Over";
     private const string OVERWORLD_SCENE = "OverworldScene";
+    private const string SUCCESS_ESCAPE = "Party ran away";
+    private const string FAILED_ESCAPE = "Party failed to escape";
 
     private const int TURN_DURATION = 2;
+    private const int RUN_CHANCE = 50;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,7 +67,7 @@ public class BattleSystem : MonoBehaviour
 
         for (int i = 0; i < allBattlers.Count; i++)
         {
-            if(battleState == BattleState.Battle)
+            if(battleState == BattleState.Battle && allBattlers[i].CurrHealth > 0)
                 {
                 switch (allBattlers[i].BattleAction)
                 {
@@ -73,6 +76,7 @@ public class BattleSystem : MonoBehaviour
                         //Debug.Log(allBattlers[i].Name + " is attacking " + allBattlers[allBattlers[i].Target].Name);
                         break;
                     case BattleEntities.Action.Run:
+                    yield return StartCoroutine(RunRoutine());
                         break;
                     default:
                         Debug.Log("Error battle");
@@ -80,6 +84,8 @@ public class BattleSystem : MonoBehaviour
                 }
             }
         }
+
+        RemoveDeadBattlers();
 
         if (battleState == BattleState.Battle)
         {
@@ -96,7 +102,7 @@ public class BattleSystem : MonoBehaviour
         if (allBattlers[i].IsPlayer == true)//players turn
         {
             BattleEntities currAttacker = allBattlers[i];
-            if(allBattlers[currAttacker.Target].IsPlayer == true || currAttacker.Target >= allBattlers.Count)
+            if(allBattlers[currAttacker.Target].CurrHealth <= 0)
             {
                 currAttacker.SetTarget(GetRandomEnemyMember());
             }
@@ -109,7 +115,6 @@ public class BattleSystem : MonoBehaviour
                 bottomText.text = string.Format("{0} defeated {1}", currAttacker.Name, currTarget.Name);
                 yield return new WaitForSeconds(TURN_DURATION);
                 enemyBattlers.Remove(currTarget);// kill the enemy
-                allBattlers.Remove(currTarget);
 
                 if (enemyBattlers.Count <= 0)
                 {
@@ -139,7 +144,7 @@ public class BattleSystem : MonoBehaviour
                 bottomText.text = string.Format("{0} defeated {1}", currAttacker.Name, currTarget.Name);
                 yield return new WaitForSeconds(TURN_DURATION);
                 playerBattlers.Remove(currTarget);
-                allBattlers.Remove(currTarget);
+                //allBattlers.Remove(currTarget);
 
                 if(playerBattlers.Count <= 0)// if no party remain
                 {
@@ -149,18 +154,50 @@ public class BattleSystem : MonoBehaviour
                 }
             }
             
-            
-            
         }
         
     }
 
+    private IEnumerator RunRoutine()
+    {
+        if(battleState == BattleState.Battle)
+        {
+            if(Random.Range(1,101) >= RUN_CHANCE)
+            {
+                //ran away
+
+                bottomText.text = SUCCESS_ESCAPE;//set our bottom text to tell us we ran
+                battleState = BattleState.Run;//set our battle state to run
+                allBattlers.Clear();// clear our all battlers list
+                yield return new WaitForSeconds(TURN_DURATION);//wait for few sec
+                SceneManager.LoadScene(OVERWORLD_SCENE);// load the overworld scene
+                yield break;
+            }
+            else
+            {
+                //failed to run
+                bottomText.text = FAILED_ESCAPE;//set our bottom text to say we failed
+                yield return new WaitForSeconds(TURN_DURATION);//wait for few sec
+            }
+        }
+    }
+
+    private void RemoveDeadBattlers()
+    {
+        for (int i = 0; i < allBattlers.Count; i++)
+        {
+            if (allBattlers[i].CurrHealth <= 0)
+            {
+                allBattlers.RemoveAt(i);
+            }
+        }
+    }
 
     private void CreatePartyEntities()
     {
         //get current party
         List<PartyMember> currentParty = new List<PartyMember>();
-        currentParty = partyManager.GetCurrentParty();
+        currentParty = partyManager.GetAliveParty();
 
         for (int i = 0; i < currentParty.Count; i++)
         {
@@ -285,7 +322,7 @@ public class BattleSystem : MonoBehaviour
 
         for (int i = 0; i < allBattlers.Count; i++)
         {
-            if (allBattlers[i].IsPlayer == true)
+            if (allBattlers[i].IsPlayer == true && allBattlers[i].CurrHealth > 0)
             {
                 partyMembers.Add(i);
             }
@@ -300,7 +337,7 @@ public class BattleSystem : MonoBehaviour
 
         for (int i = 0; i < allBattlers.Count; i++)
         {
-            if (allBattlers[i].IsPlayer == false)
+            if (allBattlers[i].IsPlayer == false && allBattlers[i].CurrHealth > 0)
             {
                 enemies.Add(i);
             }
@@ -322,6 +359,30 @@ public class BattleSystem : MonoBehaviour
         //sort list by initiative in ascending order
         allBattlers.Sort((bi1, bi2) => -bi1.Initiative.CompareTo(bi2.Initiative));
 
+
+    }
+
+    public void SelectRunAction()
+    {
+        battleState = BattleState.Selection;
+
+        BattleEntities currentPlayerEntity = playerBattlers[currentPlayer]; //setting the current members target
+        
+        currentPlayerEntity.BattleAction = BattleEntities.Action.Run; // tell battle system to run
+        
+        battleMenu.SetActive(false);
+        //increment through our party members
+        currentPlayer++;
+
+        if (currentPlayer >= playerBattlers.Count) //if all players have selected an action
+        {
+            StartCoroutine(BattleRoutine());//start the battle
+        }
+        else //else
+        {
+            enemySelectionMenu.SetActive(false); //show the battle menu for the next player
+            ShowBattleMenu();
+        }
 
     }
 

@@ -62,7 +62,10 @@ public class BattleVisuals : MonoBehaviour
 
     public void PlayHitAnimation()
     {
-        anim.SetTrigger(IS_HIT_PARAM);
+        if (anim != null && gameObject != null)
+        {
+            anim.SetTrigger(IS_HIT_PARAM);
+        }
     }
 
     public void PlayDeathAnimation()

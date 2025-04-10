@@ -401,7 +401,7 @@ TextureImporter:
         serializedVersion: 2
         x: 866
         y: 2879
-        width: 140
+        width: 138
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -28781,7 +28781,7 @@ TextureImporter:
         serializedVersion: 2
         x: 866
         y: 2879
-        width: 140
+        width: 138
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -28801,9 +28801,9 @@ TextureImporter:
       name: UI assets (3x)_1304
       rect:
         serializedVersion: 2
-        x: 1006
+        x: 1007
         y: 2879
-        width: 148
+        width: 147
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

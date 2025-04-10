@@ -18,7 +18,8 @@ public class PartyManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        else{
+        else
+        {
             instance = this.gameObject;
             AddMemberToPartyByName(defaultPartyMember.MemberName);
         }
@@ -45,6 +46,20 @@ public class PartyManager : MonoBehaviour
                 currentParty.Add(newPartyMember);
             }
         }
+    }
+
+    public List<PartyMember> GetAliveParty()
+    {
+        List<PartyMember> aliveParty = new List<PartyMember>();
+        aliveParty = currentParty;
+        for (int i = 0; i < aliveParty.Count; i++)
+        {
+            if(aliveParty[i].CurrHealth <= 0)
+            {
+                aliveParty.RemoveAt(i);
+            }
+        }
+        return aliveParty;
     }
 
     public List<PartyMember> GetCurrentParty()

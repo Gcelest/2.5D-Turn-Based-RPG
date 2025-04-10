@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 9105610810889873183}
   - component: {fileID: 1137667992448098087}
   - component: {fileID: 7060503201658181055}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SlimeBattleVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 6387186620880410422}
   - component: {fileID: 8344422926533116715}
   - component: {fileID: 2379949283605195186}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7051896286389094950}
   - component: {fileID: 2553514880319371278}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}

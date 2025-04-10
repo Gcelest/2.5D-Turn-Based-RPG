@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4849cf6a00c394cb0b996f4f8fecd7, type: 3}
+  m_Name: Claire
+  m_EditorClassIdentifier: 
+  MemberName: Claire
+  StartingLevel: 1
+  BaseHealth: 8
+  BaseStr: 7
+  BaseInitiative: 3
+  MemberBattleVisualPrefab: {fileID: 3666204070406827827, guid: 5950167e2da969749955e100b507ad52, type: 3}
+  MemberOverworldVisualPrefab: {fileID: 8877717455035685470, guid: a0e68941d34359c4caed699526018058, type: 3}

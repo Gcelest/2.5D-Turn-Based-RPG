@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915871651111198347}
   - component: {fileID: 7942540645862565005}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 3426745810246001816}
   - component: {fileID: 1646567371448464531}
   - component: {fileID: 4018937071865426493}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: JohnBattleVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 3299699395890659698}
   - component: {fileID: 1533327504839399194}
   - component: {fileID: 1756696729567064561}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1146,7 +1146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8212334848560769296}
   - component: {fileID: 3520341747677583250}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: John
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7452549446400163310}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1169,7 +1169,7 @@ Transform:
   - {fileID: 3299699395890659698}
   - {fileID: 4915871651111198347}
   m_Father: {fileID: 3426745810246001816}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &3520341747677583250
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1216,7 +1216,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -1285566599, guid: 7eaf62598d592f948b27b2af517c2c64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}

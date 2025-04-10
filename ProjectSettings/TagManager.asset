@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - JoinableNPC
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - LongGrass
   - Ground
   - Obstruction
-  - 
-  - 
+  - Player
+  - AI
   - 
   - 
   - 

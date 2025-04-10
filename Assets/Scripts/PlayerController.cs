@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallingSpeed;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask obstructionMask;
-    private bool facingRight = true;
+    private bool facingRight = false;
     private bool isGrounded;
 
     private PlayerControls playerControls;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float stepTimer;
     private int stepsToEncounter;
     private PartyManager partyManager; 
+    private Vector3 scale;
 
 
     private const string IS_JUMP_PARAM = "Jump";
@@ -72,16 +73,26 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool(IS_WALK_PARAM, movement != Vector3.zero);
 
-        if (x < 0 && facingRight)
+        // if (x < 0 && facingRight)
+        // {
+        //     StartCoroutine(RotateCharacter(0));
+        //     facingRight = false;
+        // }
+        // else if (x > 0 && !facingRight)
+        // {
+        //     StartCoroutine(RotateCharacter(180));
+        //     facingRight = true;
+        // }
+        if(x!= 0 && x<0)
         {
-            StartCoroutine(RotateCharacter(180));
-            facingRight = false;
+            sprite.transform.localScale = new Vector3(scale.x, scale.y, scale.z);
         }
-        else if (x > 0 && !facingRight)
-        {
-            StartCoroutine(RotateCharacter(0));
-            facingRight = true;
+
+        if(x!= 0 && x>0)
+        {   
+            sprite.transform.localScale = new Vector3(-scale.x, scale.y, scale.z);
         }
+
 
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
 
@@ -123,17 +134,17 @@ public class PlayerController : MonoBehaviour
         movingInGrass = colliders.Length != 0 && movement != Vector3.zero;
 
 
-         if (!isGrounded)
-    {
-        if (rb.linearVelocity.y > 0) // Going up
+        if (!isGrounded)
         {
-            rb.AddForce(Vector3.down * jumpingSpeed, ForceMode.Acceleration); // Stronger gravity while going up
+            if (rb.linearVelocity.y > 0) // Going up
+            {
+                rb.AddForce(Vector3.down * jumpingSpeed, ForceMode.Acceleration); // Stronger gravity while going up
+            }
+            else if (rb.linearVelocity.y < 0) // Falling
+            {
+                rb.AddForce(Vector3.down * fallingSpeed, ForceMode.Acceleration); // Even stronger gravity while falling
+            }
         }
-        else if (rb.linearVelocity.y < 0) // Falling
-        {
-            rb.AddForce(Vector3.down * fallingSpeed, ForceMode.Acceleration); // Even stronger gravity while falling
-        }
-    }
 
         if (movingInGrass)
         {
@@ -154,8 +165,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public bool IsJumping()
+{
+    return !isGrounded && rb.linearVelocity.y > 0; // Checks if the player is in the air and moving upwards
+}
+
     private void CalculateStepsToNextEncounter()
     {
         stepsToEncounter = Random.Range(minStepsToEncounter, maxStepsToEncounter);
+    }
+
+    public void SetOverWorldVisuals(Animator _anim, SpriteRenderer _spriteRenderer, Vector3 _scale)
+    {
+        anim = _anim;
+        sprite = _spriteRenderer;
+        scale = _scale;
     }
 }
