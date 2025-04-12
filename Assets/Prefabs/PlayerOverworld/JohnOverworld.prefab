@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: -5020865929495129347}
   m_Layer: 9
   m_Name: JohnOverworld
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,6 +210,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632afea8c4b374044b128d9a3be4f85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdExitDelay: 0
+  player: {fileID: 5897423564299512194, guid: a0e68941d34359c4caed699526018058, type: 3}
+  holdDetectionHeight: 1.2
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   followTarget: {fileID: 0}
   speed: 6
   maxTeleportDistance: 5

@@ -40,27 +40,37 @@ public class EnemyManager : MonoBehaviour
     }
 
     private void GenerateEnemyByName(string _enemyName, int _level)
+{
+    for (int i = 0; i < allEnemies.Length; i++)
     {
-        for (int i = 0; i < allEnemies.Length; i++)
+        if (_enemyName == allEnemies[i].EnemyName)
         {
-            if (_enemyName == allEnemies[i].EnemyName)
+            Enemy newEnemy = new Enemy();
+
+            newEnemy.EnemyName = allEnemies[i].EnemyName;
+            newEnemy.Level = _level;
+            float levelModifier = (LEVEL_MODIFIER * newEnemy.Level);
+
+            // Calculate stats based on level and base values
+            newEnemy.MaxHealth = Mathf.RoundToInt(allEnemies[i].BaseHealth + (allEnemies[i].BaseHealth * levelModifier));
+            newEnemy.CurrHealth = newEnemy.MaxHealth;
+            newEnemy.Strength = Mathf.RoundToInt(allEnemies[i].BaseStr + (allEnemies[i].BaseStr * levelModifier));
+
+            // Here’s where we adjust initiative for higher-level enemies
+            newEnemy.Initiative = Mathf.RoundToInt(allEnemies[i].BaseInitiative + (allEnemies[i].BaseInitiative * levelModifier));
+
+            newEnemy.EnemyVisualPrefab = allEnemies[i].EnemyVisualPrefab;
+
+            // If the enemy level is above a certain threshold, boost initiative further
+            if (newEnemy.Level > 5)  // Adjust this level threshold as needed
             {
-                Enemy newEnemy = new Enemy();
-
-                newEnemy.EnemyName = allEnemies[i].EnemyName;
-                newEnemy.Level = _level;
-                float levelModifier = (LEVEL_MODIFIER * newEnemy.Level);
-
-                newEnemy.MaxHealth = Mathf.RoundToInt(allEnemies[i].BaseHealth + (allEnemies[i].BaseHealth * levelModifier));
-                newEnemy.CurrHealth = newEnemy.MaxHealth;
-                newEnemy.Strength = Mathf.RoundToInt(allEnemies[i].BaseStr + (allEnemies[i].BaseStr * levelModifier));
-                newEnemy.Initiative = Mathf.RoundToInt(allEnemies[i].BaseInitiative + (allEnemies[i].BaseInitiative * levelModifier));
-                newEnemy.EnemyVisualPrefab = allEnemies[i].EnemyVisualPrefab;
-
-                currentEnemies.Add(newEnemy);
+                newEnemy.Initiative += Mathf.RoundToInt(newEnemy.Level * 1.5f);  // Boost initiative for higher-level enemies
             }
+
+            currentEnemies.Add(newEnemy);
         }
     }
+}
 
     public List<Enemy> GetCurrentEnemies()
     {

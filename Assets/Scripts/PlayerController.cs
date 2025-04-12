@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallingSpeed;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask obstructionMask;
-    private bool facingRight = false;
+    //private bool facingRight = false;
     private bool isGrounded;
 
     private PlayerControls playerControls;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool movingInGrass;
     private float stepTimer;
     private int stepsToEncounter;
-    private PartyManager partyManager; 
+    private PartyManager partyManager;
     private Vector3 scale;
 
 
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody>();
         partyManager = GameObject.FindFirstObjectByType<PartyManager>();
-        if(partyManager.GetPosition() != Vector3.zero)//if position saved
+        if (partyManager.GetPosition() != Vector3.zero)//if position saved
         {
             transform.position = partyManager.GetPosition();//move player
         }
@@ -83,13 +83,13 @@ public class PlayerController : MonoBehaviour
         //     StartCoroutine(RotateCharacter(180));
         //     facingRight = true;
         // }
-        if(x!= 0 && x<0)
+        if (x != 0 && x < 0)
         {
             sprite.transform.localScale = new Vector3(scale.x, scale.y, scale.z);
         }
 
-        if(x!= 0 && x>0)
-        {   
+        if (x != 0 && x > 0)
+        {
             sprite.transform.localScale = new Vector3(-scale.x, scale.y, scale.z);
         }
 
@@ -133,7 +133,6 @@ public class PlayerController : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1, grassLayer);
         movingInGrass = colliders.Length != 0 && movement != Vector3.zero;
 
-
         if (!isGrounded)
         {
             if (rb.linearVelocity.y > 0) // Going up
@@ -166,9 +165,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public bool IsJumping()
-{
-    return !isGrounded && rb.linearVelocity.y > 0; // Checks if the player is in the air and moving upwards
-}
+    {
+        return !isGrounded && rb.linearVelocity.y > 0; // Checks if the player is in the air and moving upwards
+    }
 
     private void CalculateStepsToNextEncounter()
     {
