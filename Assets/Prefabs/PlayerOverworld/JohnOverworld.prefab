@@ -215,8 +215,10 @@ MonoBehaviour:
   holdDetectionHeight: 1.2
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   followTarget: {fileID: 0}
   speed: 6
   maxTeleportDistance: 5
   teleportDelay: 3
+  playerCollider: {fileID: 0}
+  followerCollider: {fileID: 0}
