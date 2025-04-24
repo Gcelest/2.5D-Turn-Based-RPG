@@ -14,7 +14,7 @@ public class ChangeBackground : MonoBehaviour
     public Button leftButton;
     public Button rightButton;
 
-    public int currentIndex = 0;
+    public int currentIndex;
 
     public void SetBackground(int index)
     {
@@ -38,17 +38,9 @@ public class ChangeBackground : MonoBehaviour
             bg.SetActive(false); // Fully disables entire background object and all children
         }
 
-        currentIndex = 0;
-        sceneObjects[currentIndex].SetActive(true);
-
-        // Disable all backgrounds first
-        for (int i = 0; i < sceneObjects.Length; i++)
-        {
-            sceneObjects[i].SetActive(false);
-        }
-
-        // Show the first background
-        currentIndex = 0;
+        // Try to load saved background index (default to 0)
+        int savedIndex = PlayerPrefs.GetInt("BackgroundIndex", 0);
+        currentIndex = Mathf.Clamp(savedIndex, 0, sceneObjects.Length - 1);
         sceneObjects[currentIndex].SetActive(true);
 
         // Set background name in UI
@@ -74,11 +66,22 @@ public class ChangeBackground : MonoBehaviour
 
         // Update index
         currentIndex += direction;
-        if (currentIndex < 0) currentIndex = sceneObjects.Length - 1;
-        else if (currentIndex >= sceneObjects.Length) currentIndex = 0;
+        if (currentIndex < 0)
+        {
+            currentIndex = sceneObjects.Length - 1;
+        }
+        else if (currentIndex >= sceneObjects.Length)
+        {
+            currentIndex = 0;
+        }
 
         // Activate new
         sceneObjects[currentIndex].SetActive(true);
+
+        // Save selected background index
+        PlayerPrefs.SetInt("BackgroundIndex", currentIndex);
+        PlayerPrefs.Save();
+        Debug.Log("Saved BackgroundIndex = " + currentIndex);
 
         // Update UI text
         backgroundNameText.text = sceneObjects[currentIndex].name;

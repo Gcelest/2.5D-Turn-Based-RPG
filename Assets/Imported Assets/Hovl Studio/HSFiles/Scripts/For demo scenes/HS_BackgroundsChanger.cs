@@ -27,24 +27,24 @@ public class HS_BackgroundsChanger : MonoBehaviour
             GUIswitcher = !GUIswitcher;
     }
 
-    // private void OnGUI()
-    // {
-    //     if (GUIswitcher)
-    //     {
-    //         if (GUI.Button(new Rect(5 * windowDpi, 5 * windowDpi, 110 * windowDpi, 35 * windowDpi), "Previous effect"))
-    //         {
-    //             Counter(-1);
-    //         }
-    //         if (GUI.Button(new Rect(120 * windowDpi, 5 * windowDpi, 110 * windowDpi, 35 * windowDpi), "Play again"))
-    //         {
-    //             Counter(0);
-    //         }
-    //         if (GUI.Button(new Rect(235 * windowDpi, 5 * windowDpi, 110 * windowDpi, 35 * windowDpi), "Next effect"))
-    //         {
-    //             Counter(+1);
-    //         }
-    //     }
-    // }
+    private void OnGUI()
+    {
+        if (GUIswitcher)
+        {
+            if (GUI.Button(new Rect(5 * windowDpi, 5 * windowDpi, 110 * windowDpi, 35 * windowDpi), "Previous effect"))
+            {
+                Counter(-1);
+            }
+            if (GUI.Button(new Rect(120 * windowDpi, 5 * windowDpi, 110 * windowDpi, 35 * windowDpi), "Play again"))
+            {
+                Counter(0);
+            }
+            if (GUI.Button(new Rect(235 * windowDpi, 5 * windowDpi, 110 * windowDpi, 35 * windowDpi), "Next effect"))
+            {
+                Counter(+1);
+            }
+        }
+    }
 
     void Counter(int count)
     {

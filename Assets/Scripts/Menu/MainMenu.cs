@@ -4,34 +4,46 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    public Animator bookAnimator;
-    public GameObject mainMenuUI;
-    public GameObject saveSlotUI;
     public FadeManager fadeManager; // Reference to the FadeManager
-
+    public GameObject mainMenuUI;
+    public GameObject saveSlotUI; // Reference to the FadeManager
+    public GameObject repeatedlyBookObject;
+    public GameObject elementalUI; // Reference to the FadeManager
+    public Animator bookRepeatedlyAnimator; // Reference to the book animator
+    public Animator bookAnimator;
+    public Animator fireAnimator; // Reference to the fire animator
+    public GameObject quitUI; // Reference to the FadeManager
     public void Play()
     {
         Debug.Log("Opening book for save slots...");
-        bookAnimator.SetTrigger("OpenBookTrigger");
         StartCoroutine(ShowSaveSlots());
     }
 
     public void Back()
     {
-        bookAnimator.SetTrigger("CloseBookTrigger");
         StartCoroutine(ShowMainMenu());
     }
 
-    IEnumerator ShowSaveSlots()
+    public IEnumerator ShowSaveSlots()
     {
-        yield return new WaitForSeconds(2f); // Match your book open anim
+        elementalUI.SetActive(true);
+        fireAnimator.SetTrigger("FireUp");
+        yield return new WaitForSeconds(.4f);
+        mainMenuUI.SetActive(false);
         saveSlotUI.SetActive(true);
+        yield return new WaitForSeconds(.6f);// Match your book open anim
+        elementalUI.SetActive(false);
     }
 
-    IEnumerator ShowMainMenu()
+    public IEnumerator ShowMainMenu()
     {
-        yield return new WaitForSeconds(2f); // Match your book close anim
+        elementalUI.SetActive(true);
+        fireAnimator.SetTrigger("FireUp"); // Match your book close anim
+        yield return new WaitForSeconds(.4f);
+        saveSlotUI.SetActive(false);
         mainMenuUI.SetActive(true);
+        yield return new WaitForSeconds(.6f);
+        elementalUI.SetActive(false);
     }
 
     // public void StartGameAfterSlot()
@@ -42,7 +54,23 @@ public class MainMenu : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Player has quit the game.");
-        Application.Quit();
+        StartCoroutine(QuitGame());
+    }
+
+    private IEnumerator QuitGame()
+    {
+        quitUI.SetActive(false); // Hide the quit confirmation UI
+        bookRepeatedlyAnimator.SetTrigger("CloseRepeatedly");
+        yield return new WaitForSeconds(0.5f); // Wait for animation
+        repeatedlyBookObject.SetActive(false);
+        
+        bookAnimator.SetTrigger("CloseBookTrigger");
+
+        fadeManager.gameObject.SetActive(true); // Ensure fade is active
+
+        fadeManager.PlayWithFade(() =>
+        {
+            Application.Quit();
+        });
     }
 }

@@ -47,6 +47,7 @@ public class SaveSlotUI: MonoBehaviour
     public void OnPlayPressed(int index, FadeManager fadeManager)
     {
         Debug.Log("Play slot " + index);
+        fadeManager.gameObject.SetActive(true);
         fadeManager.PlayWithFade(() =>
         {
             if (SaveSystem.SaveExists(index))
