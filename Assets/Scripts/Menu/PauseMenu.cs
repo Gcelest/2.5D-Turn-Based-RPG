@@ -34,7 +34,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         pauseCanvas.SetActive(true);
-        musicManager.PlayPauseMenuMusic();
+        //musicManager.PlayPauseMenuMusic();
         Time.timeScale = 0f;
         isPaused = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -44,7 +44,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseCanvas.SetActive(false);
-        musicManager.PlayInGameMusic();
+        //musicManager.PlayInGameMusic();
         Time.timeScale = 1f;   
         isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;

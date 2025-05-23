@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public float playTime;
     public int currentSlot;
+    public AudioSource musicSource;
 
     private void Awake()
     {
@@ -32,6 +33,10 @@ public class GameManager : MonoBehaviour
         currentSlot = slot;
         playTime = 0;
         // Set other new game data...
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+        }
         SceneManager.LoadScene("OverworldScene"); // Replace with your actual scene
     }
 
@@ -74,7 +79,7 @@ public class GameManager : MonoBehaviour
         {
             bgManager.SetBackground(data.currentBackgroundIndex);
         }
-
+        
         // Set player position, etc. if needed
     }
 }

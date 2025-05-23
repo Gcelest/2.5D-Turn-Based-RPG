@@ -18,9 +18,18 @@ public class ChangeBackground : MonoBehaviour
 
     public void SetBackground(int index)
     {
-        foreach (GameObject bg in sceneObjects)
+        if (index == currentIndex && sceneObjects[index].activeSelf)
         {
-            bg.SetActive(false);
+            // Same background and already active — skip to avoid resetting animation
+            return;
+        }
+
+        for (int i = 0; i < sceneObjects.Length; i++)
+        {
+            if (i != index && sceneObjects[i].activeSelf)
+            {
+                sceneObjects[i].SetActive(false); // Only deactivate others
+            }
         }
 
         if (index >= 0 && index < sceneObjects.Length)
@@ -30,18 +39,22 @@ public class ChangeBackground : MonoBehaviour
         }
     }
 
-
     void Start()
     {
-        foreach (GameObject bg in sceneObjects)
-        {
-            bg.SetActive(false); // Fully disables entire background object and all children
-        }
-
-        // Try to load saved background index (default to 0)
         int savedIndex = PlayerPrefs.GetInt("BackgroundIndex", 0);
         currentIndex = Mathf.Clamp(savedIndex, 0, sceneObjects.Length - 1);
-        sceneObjects[currentIndex].SetActive(true);
+
+        for (int i = 0; i < sceneObjects.Length; i++)
+        {
+            if (i == currentIndex)
+            {
+                sceneObjects[i].SetActive(true); // Only activate the selected one
+            }
+            else
+            {
+                sceneObjects[i].SetActive(false); // Deactivate the rest
+            }
+        }
 
         // Set background name in UI
         if (backgroundNameText != null)
@@ -56,6 +69,7 @@ public class ChangeBackground : MonoBehaviour
     {
         return currentIndex;
     }
+
 
 
 
@@ -86,4 +100,13 @@ public class ChangeBackground : MonoBehaviour
         // Update UI text
         backgroundNameText.text = sceneObjects[currentIndex].name;
     }
+
+    public Camera GetActiveBackgroundCamera()
+    {
+        if (currentIndex >= 0 && currentIndex < sceneObjects.Length)
+            return sceneObjects[currentIndex].GetComponentInChildren<Camera>(true); // include inactive
+        return null;
+    }
+
+
 }

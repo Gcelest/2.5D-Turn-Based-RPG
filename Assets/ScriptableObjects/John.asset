@@ -16,6 +16,6 @@ MonoBehaviour:
   StartingLevel: 1
   BaseHealth: 10
   BaseStr: 5
-  BaseInitiative: 7
+  BaseInitiative: 11
   MemberBattleVisualPrefab: {fileID: 3666204070406827827, guid: e86c8f04280bf3c499aaeb3eedcdb467, type: 3}
   MemberOverworldVisualPrefab: {fileID: 4287885566283721025, guid: 28b5793e84b77704faa3f2f456cbcf6b, type: 3}

@@ -51,11 +51,14 @@ public class BattleSystem : MonoBehaviour
     {
         partyManager = GameObject.FindFirstObjectByType<PartyManager>();
         enemyManager = GameObject.FindFirstObjectByType<EnemyManager>();
-        StartBattle();
+
         CreatePartyEntities();
         CreateEnemyEntities();
-        ShowBattleMenu();
-        DetermineBattleOrder();
+
+        // ShowBattleMenu();
+        // DetermineBattleOrder();
+        
+        StartBattle();
     }
 
     private void StartBattle()
@@ -71,7 +74,7 @@ public class BattleSystem : MonoBehaviour
 
         // Start the first turn
         currentTurnIndex = 0;
-        ProceedToNextTurn();
+        StartCoroutine(BattleRoutine());
     }
 
     private void AddPlayersToBattle()

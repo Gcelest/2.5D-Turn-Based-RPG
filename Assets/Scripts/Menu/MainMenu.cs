@@ -8,7 +8,11 @@ public class MainMenu : MonoBehaviour
     public GameObject mainMenuUI;
     public GameObject saveSlotUI; // Reference to the FadeManager
     public GameObject repeatedlyBookObject;
-    public GameObject elementalUI; // Reference to the FadeManager
+    public GameObject elementalFireUI; // Reference to the FadeManager
+    public GameObject styleMenuUI;
+    public GameObject backgroundGroup;
+    public ChangeBackground changeBackground;
+
     public Animator bookRepeatedlyAnimator; // Reference to the book animator
     public Animator bookAnimator;
     public Animator fireAnimator; // Reference to the fire animator
@@ -19,32 +23,58 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(ShowSaveSlots());
     }
 
-    public void Back()
+    public void BackSaveSlots()
     {
-        StartCoroutine(ShowMainMenu());
+        StartCoroutine(ShowSaveSlotReturnMainMenu());
     }
 
     public IEnumerator ShowSaveSlots()
     {
-        elementalUI.SetActive(true);
+        elementalFireUI.SetActive(true);
         fireAnimator.SetTrigger("FireUp");
         yield return new WaitForSeconds(.4f);
         mainMenuUI.SetActive(false);
         saveSlotUI.SetActive(true);
         yield return new WaitForSeconds(.6f);// Match your book open anim
-        elementalUI.SetActive(false);
+        elementalFireUI.SetActive(false);
     }
 
-    public IEnumerator ShowMainMenu()
+    public IEnumerator ShowSaveSlotReturnMainMenu()
     {
-        elementalUI.SetActive(true);
+        elementalFireUI.SetActive(true);
         fireAnimator.SetTrigger("FireUp"); // Match your book close anim
         yield return new WaitForSeconds(.4f);
         saveSlotUI.SetActive(false);
         mainMenuUI.SetActive(true);
         yield return new WaitForSeconds(.6f);
-        elementalUI.SetActive(false);
+        elementalFireUI.SetActive(false);
     }
+
+    // might change OpenStyleReturnMainMenu to IEnumetator
+    // public void BackOpenStyle()
+    // {
+    //     StartCoroutine(OpenStyleReturnMainMenu());
+    // }
+
+    public void OpenStyleMenu()
+    {
+        if (!backgroundGroup.activeSelf)
+        {
+            backgroundGroup.SetActive(true);
+            int savedIndex = PlayerPrefs.GetInt("BackgroundIndex", 0);
+            changeBackground.SetBackground(savedIndex);
+        }
+
+        mainMenuUI.SetActive(false); // Optional: Hide main menu if needed
+        styleMenuUI.SetActive(true);
+    }
+
+    public void OpenStyleReturnMainMenu()
+    {
+        styleMenuUI.SetActive(false);
+        mainMenuUI.SetActive(true);
+    }
+
 
     // public void StartGameAfterSlot()
     // {
@@ -54,7 +84,18 @@ public class MainMenu : MonoBehaviour
 
     public void Quit()
     {
-        StartCoroutine(QuitGame());
+        quitUI.SetActive(true); // Show quit confirmation UI
+    }
+
+    public void QuitNo()
+    {
+        quitUI.SetActive(false); // Hide quit confirmation UI
+        mainMenuUI.SetActive(true); // Go back to the main menu
+    }
+
+    public void QuitYes()
+    {
+        StartCoroutine(QuitGame()); // Proceed to quit game
     }
 
     private IEnumerator QuitGame()
@@ -63,7 +104,7 @@ public class MainMenu : MonoBehaviour
         bookRepeatedlyAnimator.SetTrigger("CloseRepeatedly");
         yield return new WaitForSeconds(0.5f); // Wait for animation
         repeatedlyBookObject.SetActive(false);
-        
+
         bookAnimator.SetTrigger("CloseBookTrigger");
 
         fadeManager.gameObject.SetActive(true); // Ensure fade is active
@@ -73,4 +114,5 @@ public class MainMenu : MonoBehaviour
             Application.Quit();
         });
     }
+
 }
